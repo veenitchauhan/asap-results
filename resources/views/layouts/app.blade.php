@@ -24,7 +24,9 @@
   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
     @csrf
   </form>
-  @include('layouts.page_templates.auth')
+  <div id="app">
+    @include('layouts.page_templates.auth')
+  </div>
   @endauth
   @guest()
   @include('layouts.page_templates.guest')
@@ -104,6 +106,7 @@
     </div>
   </div> -->
   @endif
+  <script src="{{ asset('js/app.js')}}"></script>
   <!--   Core JS Files   -->
   <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
   <script src="{{ asset('material') }}/js/core/popper.min.js"></script>
