@@ -8,7 +8,7 @@
         @csrf
 
         <div class="card card-login card-hidden mb-3">
-          <div class="card-header card-header-primary text-center">
+          <div class="card-header card-header-warning text-center">
             <h4 class="card-title"><strong>{{ __('Login') }}</strong></h4>
           </div>
           <div class="card-body">
@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="card-footer justify-content-center">
-            <button type="submit" class="btn btn-primary btn-link btn-lg">{{ __('Lets Go') }}</button>
+            <button type="submit" class="btn btn-warning btn-link btn-lg">{{ __('Lets Go') }}</button>
           </div>
         </div>
       </form>

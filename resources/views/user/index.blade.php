@@ -4,31 +4,31 @@
 <div class="content">
     <div class="container-fluid">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewUserModal">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addNewUserModal">
                 Add New User
             </button>
             <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title ">Users List</h4>
+                <div class="card-header card-header-warning">
+                    <h4 class="card-title font-weight-bold">Users List</h4>
                     <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table">
-                            <thead class=" text-primary">
-                                <th>
+                            <thead class=" text-warning">
+                                <th class="font-weight-bold">
                                     Name
                                 </th>
-                                <th>
+                                <th class="font-weight-bold">
                                     Email
                                 </th>
-                                <th>
+                                <th class="font-weight-bold">
                                     Created At
                                 </th>
-                                <th class="text-center">
+                                <th class="font-weight-bold text-center">
                                     Admin
                                 </th>
-                                <th class="text-center">
+                                <th class="font-weight-bold text-center">
                                     Actions
                                 </th>
                             </thead>
@@ -88,7 +88,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="addNewUserForm" class="btn btn-primary">Save</button>
+                <button type="submit" form="addNewUserForm" class="btn btn-warning">Save</button>
             </div>
         </div>
     </div>
@@ -118,7 +118,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="addNewUserForm" class="btn btn-primary">Save</button>
+                <button type="submit" form="addNewUserForm" class="btn btn-warning">Save</button>
             </div>
         </div>
     </div>

@@ -19,8 +19,8 @@ class UserController extends Controller
     public function index()
     {
         Gate::authorize('is-admin');
-        $data['users'] = User::get();
-        // $data['users'] = User::where('is_admin', 0)->get();
+        // $data['users'] = User::get();
+        $data['users'] = User::where('is_admin', 0)->get();
         return view('user.index')->with($data);
     }
 

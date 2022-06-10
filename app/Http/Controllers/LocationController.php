@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -13,7 +14,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        return view('location.index');
+        $data['locations'] = Location::get();
+        return view('location.index')->with($data);
     }
 
     /**
@@ -34,7 +36,16 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        Location::create([
+            'location_name' => $request->location_name,
+            'contant_person' => $request->contant_person,
+            'contact_number' => $request->contact_number,
+            'clinic' => $request->clinic,
+            'timezone' => $request->timezone,
+        ]);
+
+        return back();
     }
 
     /**
@@ -68,7 +79,16 @@ class LocationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Location::find($request->id)->update([
+            'location_name' => $request->location_name,
+            'contant_person' => $request->contant_person,
+            'contact_number' => $request->contact_number,
+            'clinic' => $request->clinic,
+            'timezone' => $request->timezone,
+            'status' => $request->status == 1 ? 1 : 0
+        ]);
+
+        return back();
     }
 
     /**
