@@ -28,7 +28,7 @@
       </div>
 
       <div class="card col-3" style="min-width: 20rem;">
-        <a href="{{ route('user.index') }}">
+        <a href="{{ route('collection.index') }}">
           <div class="card-body text-center">
             <i class="material-icons text-warning">workspaces</i>
             <h5 class="card-title font-weight-bold">Patient Collections</h5>

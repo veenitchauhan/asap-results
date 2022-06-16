@@ -15,4 +15,9 @@ class PatientCollectionController extends Controller
     {
         return view('patient_collection.create');
     }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
