@@ -22,12 +22,12 @@
 
                         <table class="table">
                             <thead class="text-warning">
-                                <th class="font-weight-bold">
+                                <!-- <th class="font-weight-bold">
                                     Collection ID
                                 </th>
                                 <th class="font-weight-bold">
                                     Government Issued ID
-                                </th>
+                                </th> -->
                                 <th class="font-weight-bold">
                                     Patient ID
                                 </th>
@@ -35,10 +35,10 @@
                                     Name
                                 </th>
                                 <th class="font-weight-bold">
-                                    Clinic
+                                    City
                                 </th>
                                 <th class="font-weight-bold">
-                                    Barcode
+                                    State
                                 </th>
                                 <th class="font-weight-bold">
                                     Zipcode
@@ -48,8 +48,16 @@
                                 </th>
                             </thead>
                             <tbody>
+                                @foreach($patient_collection as $patient)
                                 <tr>
+                                    <td>{{ $patient->id }}</td>
+                                    <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
+                                    <td>{{ $patient->city }}</td>
+                                    <td>{{ $patient->state }}</td>
+                                    <td>{{ $patient->zipcode }}</td>
+                                    <td>{{ $patient->created_at }}</td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
