@@ -28,8 +28,8 @@ class CreatePatientCollectionsTable extends Migration
             $table->string('city', 100);
             $table->string('state', 100);
             $table->integer('zipcode');
-            $table->string('phone_number', 20);
-            $table->string('email_id');
+            $table->string('phone_number', 20)->nullable();
+            $table->string('email_id')->nullable();
             $table->integer('race_id');
             $table->integer('ethnicity_id');
             $table->integer('proof_id');

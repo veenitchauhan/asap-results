@@ -21,10 +21,23 @@ class PatientCollectionController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $validated = $request->validate([
+            'gender' => 'required',
+            'clinic_req_number' => 'required',
+            'test_type_id' => 'required',
+            'lab_id' => 'required',
+        ]);
+
+        if (isset($validator) && $validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         PatientCollection::create([
             'clinic_req_number' => $request->clinic_req_number,
-            'test_type_id' => 1,
-            'lab_id' => 1,
+            'test_type_id' => $request->test_type_id,
+            'lab_id' => $request->lab_id,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'date_of_birth' => $request->date_of_birth,
@@ -36,12 +49,12 @@ class PatientCollectionController extends Controller
             'zipcode' => $request->zipcode,
             'phone_number' => $request->phone_number,
             'email_id' => $request->email_id,
-            'race_id' => 1,
-            'ethnicity_id' => 1,
-            'proof_id' => 1,
-            'state_code' => 12345,
+            'race_id' => $request->race_id,
+            'ethnicity_id' => $request->ethnicity_id,
+            'proof_id' => $request->proof_id,
+            'state_code' => $request->state_code,
             'insurance_provider' => $request->insurance_provider,
-            'insurance_policy_number' => 123456,
+            'insurance_policy_number' => $request->insurance_policy_number,
         ]);
 
         return redirect()->route('collection.index');
