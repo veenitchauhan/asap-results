@@ -20,4 +20,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController');
 	Route::resource('location', 'App\Http\Controllers\LocationController');
 	Route::resource('collection', 'App\Http\Controllers\PatientCollectionController');
+	Route::resource('test_type', 'App\Http\Controllers\TestTypeController');
+	Route::resource('symptom', 'App\Http\Controllers\SymptomController');
 });

@@ -12,3 +12,7 @@
         ),
         linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
 }
+
+.bmd-form-group.is-focused label {
+    color: #ffa726;
+}

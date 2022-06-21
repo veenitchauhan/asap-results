@@ -37,6 +37,12 @@
           <p class="font-weight-bold">{{ __('Patient Collections') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'test_type' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('test_type.index') }}">
+          <i class="material-icons">medical_information</i>
+          <p class="font-weight-bold">{{ __('Test Types') }}</p>
+        </a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
           <i class="material-icons">settings</i>
