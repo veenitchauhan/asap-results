@@ -22,4 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('collection', 'App\Http\Controllers\PatientCollectionController');
 	Route::resource('test_type', 'App\Http\Controllers\TestTypeController');
 	Route::resource('symptom', 'App\Http\Controllers\SymptomController');
+	Route::resource('lab', 'App\Http\Controllers\LabController');
+	Route::resource('race', 'App\Http\Controllers\RaceController');
+	Route::resource('ethnicity', 'App\Http\Controllers\EthnicityController');
 });

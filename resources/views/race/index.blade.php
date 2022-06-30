@@ -1,18 +1,18 @@
-@extends('layouts.app', ['activePage' => 'test_type', 'titlePage' => __('Test Types')])
+@extends('layouts.app', ['activePage' => 'race', 'titlePage' => __('Races')])
 
 @section('content')
 <div class="content">
     <div class="container-fluid">
         <div class="col-md-12">
 
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addTestType">
-                Add Test Type
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addNewrace">
+                Add New Race
             </button>
 
             <div class="card">
 
                 <div class="card-header card-header-warning">
-                    <h4 class="card-title font-weight-bold">Test Types</h4>
+                    <h4 class="card-title font-weight-bold">Races</h4>
                 </div>
 
                 <div class="card-body">
@@ -21,7 +21,7 @@
                         <table class="table">
                             <thead class="text-warning">
                                 <th class="font-weight-bold text-center">
-                                    Test Type ID
+                                    Race ID
                                 </th>
                                 <th class="font-weight-bold">
                                     Name
@@ -31,16 +31,13 @@
                                 </th>
                             </thead>
                             <tbody>
-                                @foreach($test_types as $test_type)
+                                @foreach($races as $race)
                                 <tr>
-                                    <td class="text-center">{{ $test_type->id }}</td>
-                                    <td>{{ $test_type->name }}</td>
+                                    <td class="text-center">{{ $race->id }}</td>
+                                    <td>{{ $race->name }}</td>
                                     <td class="p-0 text-center">
-                                        <a href="{{ route('symptom.show', $test_type->id) }}">
-                                            <button class="btn btn-sm">Symptoms: {{ $test_type->symptoms->count() }}</button>
-                                        </a>
-                                        <button class="btn btn-sm btn-warning" data-id="{{ $test_type->id }}" data-name="{{ $test_type->name }}" onclick="editTestType(this)">Edit</button>
-                                        <form action="{{ route('test_type.destroy', $test_type->id) }}" method="post" class="d-inline">@csrf @method('DELETE')
+                                        <button class="btn btn-sm btn-warning" data-id="{{ $race->id }}" data-name="{{ $race->name }}" onclick="editTestType(this)">Edit</button>
+                                        <form action="{{ route('race.destroy', $race->id) }}" method="post" class="d-inline">@csrf @method('DELETE')
                                             <button class="btn btn-sm btn-danger">Delete</button>
                                         </form>
                                     </td>
@@ -58,27 +55,27 @@
     </div>
 </div>
 
-<div class="modal fade" id="addTestType" tabindex="-1" role="dialog">
+<div class="modal fade" id="addNewrace" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add New Location</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h5 class="modal-title">Add New Race</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-raceel="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addTestTypeForm" method="post" action="{{ route('test_type.store') }}">
+                <form id="addNewraceForm" method="post" action="{{ route('race.store') }}">
                     @csrf
                     <div class="form-group">
-                        <label>Test Type Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="Enter test type name">
+                        <raceel>Race Name</raceel>
+                        <input type="text" name="name" class="form-control" placeholder="Enter race name">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="addTestTypeForm" class="btn btn-warning">Save</button>
+                <button type="submit" form="addNewraceForm" class="btn btn-warning">Save</button>
             </div>
         </div>
     </div>
@@ -88,18 +85,18 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Location</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeModal()">
+                <h5 class="modal-title">Edit Race</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-raceel="Close" onclick="closeModal()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editTestTypeForm" method="post" action="{{ route('test_type.update', 0) }}">@csrf @method('PUT')
+                <form id="editTestTypeForm" method="post" action="{{ route('race.update', 0) }}">@csrf @method('PUT')
                     @csrf
                     <div class="form-group">
-                        <label>Test Type Name</label>
-                        <input type="hidden" name="test_type_id">
-                        <input type="text" name="name" class="form-control" placeholder="Enter test type name">
+                        <raceel>Race Name</raceel>
+                        <input type="hidden" name="race_id">
+                        <input type="text" name="name" class="form-control" placeholder="Enter race name">
                     </div>
                 </form>
             </div>
@@ -115,7 +112,7 @@
 <script>
     function editTestType(elm){
         console.log(elm.dataset)
-        $('input[name="test_type_id"]').val(elm.dataset.id)
+        $('input[name="race_id"]').val(elm.dataset.id)
         $('input[name="name"]').val(elm.dataset.name)
         $("#editTestType").modal('show')
     }

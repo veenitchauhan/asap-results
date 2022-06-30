@@ -37,12 +37,6 @@
           <p class="font-weight-bold">{{ __('Patient Collections') }}</p>
         </a>
       </li>
-      <li class="nav-item{{ $activePage == 'test_type' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('test_type.index') }}">
-          <i class="material-icons">medical_information</i>
-          <p class="font-weight-bold">{{ __('Test Types') }}</p>
-        </a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="true">
           <i class="material-icons">settings</i>
@@ -51,7 +45,13 @@
             <b class="caret"></b>
           </p>
         </a>
-        <div class="collapse {{ $activePage == 'profile' ? 'show' : '' }}" id="settings">
+        <div class="collapse {{
+          $activePage == 'profile' ||
+          $activePage == 'test_type' ||
+          $activePage == 'lab' ||
+          $activePage == 'race' ||
+          $activePage == 'ethnicity' 
+          ? 'show' : '' }}" id="settings">
           <ul class="nav">
             <li class="nav-item">
               <a class="nav-link" href="{{ route('profile.edit') }}">
@@ -63,6 +63,30 @@
               <a class="nav-link" href="{{ route('profile.edit') }}">
                 <i class="material-icons pt-1">lock_reset</i>
                 <p class="font-weight-bold">{{ __('Change Password') }}</p>
+              </a>
+            </li>
+            <li class="nav-item {{ $activePage == 'test_type' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('test_type.index') }}">
+                <i class="material-icons">medical_information</i>
+                <p class="font-weight-bold">{{ __('Test Types') }}</p>
+              </a>
+            </li>
+            <li class="nav-item {{ $activePage == 'lab' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('lab.index') }}">
+                <i class="material-icons pt-1">lock_reset</i>
+                <p class="font-weight-bold">{{ __('Labs') }}</p>
+              </a>
+            </li>
+            <li class="nav-item {{ $activePage == 'race' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('race.index') }}">
+                <i class="material-icons pt-1">lock_reset</i>
+                <p class="font-weight-bold">{{ __('Race') }}</p>
+              </a>
+            </li>
+            <li class="nav-item {{ $activePage == 'ethnicity' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('ethnicity.index') }}">
+                <i class="material-icons pt-1">lock_reset</i>
+                <p class="font-weight-bold">{{ __('Ethnicity') }}</p>
               </a>
             </li>
           </ul>

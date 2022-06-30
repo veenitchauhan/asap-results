@@ -43,14 +43,18 @@
                                 <div class="label col-3 offset-1">Select Test Type: </div>
                                 <select name="test_type_id" class="col-6 custom-select">
                                     <option value="" selected>--Select--</option>
-                                    <option value="1">SARS-CoV-2 RT-PCR</option>
+                                    @foreach($test_types as $test_type)
+                                    <option value="{{ $test_type->id }}">{{ $test_type->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group row">
                                 <div class="label col-3 offset-1">LAB: </div>
                                 <select name="lab_id" class="col-6 custom-select">
                                     <option value="" selected>--Select--</option>
-                                    <option value="1">ASAP Results</option>
+                                    @foreach($labs as $lab)
+                                    <option value="{{ $lab->id }}">{{ $lab->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group required required row">
@@ -127,14 +131,18 @@
                                 <div class="label col-3 offset-1">Choose Race: </div>
                                 <select name="race" class="col-6 custom-select">
                                     <option value="" selected>--Select--</option>
-                                    <option value="1">Testing Race 1</option>
+                                    @foreach($races as $race)
+                                    <option value="{{ $race->id }}">{{ $race->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Choose Ethnicity: </div>
                                 <select name="ethnicity" class="col-6 custom-select">
                                     <option selected>--Select--</option>
-                                    <option value="1">Testing Race 1</option>
+                                    @foreach($ethnicities as $ethnicity)
+                                    <option value="{{ $ethnicity->id }}">{{ $ethnicity->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group required row">

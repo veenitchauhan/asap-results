@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ethnicity;
+use App\Models\Lab;
 use App\Models\PatientCollection;
+use App\Models\Race;
+use App\Models\TestType;
 use Illuminate\Http\Request;
 
 class PatientCollectionController extends Controller
@@ -12,10 +16,14 @@ class PatientCollectionController extends Controller
         $data['patient_collection'] = PatientCollection::get();
         return view('patient_collection.index')->with($data);
     }
-
+    
     public function create()
     {
-        return view('patient_collection.create');
+        $data['test_types'] = TestType::get();
+        $data['labs'] = Lab::get();
+        $data['races'] = Race::get();
+        $data['ethnicities'] = Ethnicity::get();
+        return view('patient_collection.create')->with($data);
     }
 
     public function store(Request $request)
