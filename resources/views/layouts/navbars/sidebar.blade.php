@@ -73,7 +73,7 @@
             </li>
             <li class="nav-item {{ $activePage == 'lab' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('lab.index') }}">
-                <i class="material-icons pt-1">lock_reset</i>
+                <i class="material-icons pt-1">biotech</i>
                 <p class="font-weight-bold">{{ __('Labs') }}</p>
               </a>
             </li>
