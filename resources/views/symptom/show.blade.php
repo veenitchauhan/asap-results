@@ -26,7 +26,7 @@
                         <table class="table">
                             <thead class="text-warning">
                                 <th class="font-weight-bold text-center">
-                                    Symptom ID
+                                    #
                                 </th>
                                 <th class="font-weight-bold">
                                     Name
@@ -38,7 +38,7 @@
                             <tbody>
                                 @foreach($symptoms as $symptom)
                                 <tr>
-                                    <td class="text-center">{{ $symptom->id }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $symptom->name }}</td>
                                     <td class="p-0 text-center">
                                         <button class="btn btn-sm btn-warning" data-id="{{ $symptom->id }}" data-name="{{ $symptom->name }}" onclick="editSymptom(this)">Edit</button>

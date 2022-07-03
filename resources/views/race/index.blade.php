@@ -21,7 +21,7 @@
                         <table class="table">
                             <thead class="text-warning">
                                 <th class="font-weight-bold text-center">
-                                    Race ID
+                                    #
                                 </th>
                                 <th class="font-weight-bold">
                                     Name
@@ -33,7 +33,7 @@
                             <tbody>
                                 @foreach($races as $race)
                                 <tr>
-                                    <td class="text-center">{{ $race->id }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $race->name }}</td>
                                     <td class="p-0 text-center">
                                         <button class="btn btn-sm btn-warning" data-id="{{ $race->id }}" data-name="{{ $race->name }}" onclick="editTestType(this)">Edit</button>

@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('collection.store') }}" method="POST">
+                        <form action="{{ route('collection.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id">
                             <div class="form-group row">
@@ -41,19 +41,26 @@
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Select Test Type: </div>
-                                <select name="test_type_id" class="col-6 custom-select">
+                                <select name="test_type_id" onchange="getSymptoms(this)" class="col-6 custom-select">
                                     <option value="" selected>--Select--</option>
                                     @foreach($test_types as $test_type)
                                     <option value="{{ $test_type->id }}">{{ $test_type->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div id="test_type_symptoms" class="form-group required row" style="display: none">
+                                <div class="label col-3 offset-1">Symptoms: </div>
+                                <select name="symptoms[]" multiple id="symptoms" class="col-6 offset-4 custom-select">
+                                </select>
+                            </div>
+
                             <div class="form-group row">
-                                <div class="label col-3 offset-1">LAB: </div>
+                                <div class="label col-3 offset-1">Location: </div>
                                 <select name="lab_id" class="col-6 custom-select">
                                     <option value="" selected>--Select--</option>
-                                    @foreach($labs as $lab)
-                                    <option value="{{ $lab->id }}">{{ $lab->name }}</option>
+                                    @foreach($locations as $location)
+                                    <option value="{{ $location->id }}">{{ $location->location_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -71,10 +78,7 @@
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Is Minor: </div>
-                                <div class="custom-control custom-switch">
-                                    <input name="is_minor" type="checkbox" class="custom-control-input" id="isMinor">
-                                    <label class="custom-control-label" for="isMinor">Toggel if Minor</label>
-                                </div>
+                                <input name="is_minor" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Gender: </div>
@@ -89,7 +93,7 @@
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Address: </div>
-                                <input type="text" name="address" class="form-control col-6 px-3" placeholder="Address">
+                                <input type="text" name="address" id="address" class="form-control col-6 px-3">
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Address 2: </div>
@@ -169,22 +173,90 @@
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Insurance Policy #: </div>
-                                <input type="text" name="insurance_policy_number" class="form-control col-6 px-3" placeholder="Insurance Policy #">
+                                <input type="text" name="insurance_policy_number" class="form-control col-5 px-3" placeholder="Insurance Policy #">
+                                <button type="button" class="btn btn-sm btn-warning">Verify</button>
                             </div>
-                            <div class="form-group required row">
+
+                            <!-- <div class="form-group required row">
                                 <div class="label col-3 offset-1">Insurance Eligibility Verification #: </div>
                                 <input type="text" name="eligibility" class="form-control col-6 px-3" placeholder="Validate Insurance Number">
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Insurance Discovery: </div>
                                 <input type="text" name="insurance" class="form-control col-6 px-3" placeholder="Insurance Discovery">
-                            </div>
-                            <div class="form-group required row">
-                                <div class="label col-3 offset-1">First Test: </div>
+                            </div> -->
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">First Test? </div>
                                 <div class="custom-control custom-switch">
-                                    <input name="first_test" type="checkbox" class="custom-control-input" id="isFirstTest">
-                                    <label class="custom-control-label" for="isFirstTest">Is this your first test</label>
+                                    <input name="first_test" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
                                 </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">Are you pregnant? </div>
+                                <div class="custom-control custom-switch">
+                                    <input name="pregnant" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">Do you work in healthcare? </div>
+                                <div class="custom-control custom-switch">
+                                    <input name="healthcare" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">Are you symptomatic as defined by the CDC? </div>
+                                <div class="custom-control custom-switch">
+                                    <input name="symptomatic" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">Do you live in a congregate care setting? </div>
+                                <div class="custom-control custom-switch">
+                                    <input name="congregate" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">Were you hospitalized? </div>
+                                <div class="custom-control custom-switch">
+                                    <input name="hospitalized" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">Were you admitted to the ICU? </div>
+                                <div class="custom-control custom-switch">
+                                    <input name="admitted" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1 pt-3">SSN/Driver/Passport File (JPG, PNG)</div>
+                                <div class="input-group col-6 border pt-2">
+                                    <div class="custom-file">
+                                        <input type="file" name="proof" class="custom-file-input" id="proofFile" lang="ru">
+                                        <label class="custom-file-label" for="proofFile">Upload PNG or JPG</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1 pt-3">Insurance Card Front (JPG, PNG)</div>
+                                <div class="input-group col-6 border pt-2">
+                                    <div class="custom-file">
+                                        <input type="file" name="insurance_card_front" class="custom-file-input" id="insuranceFile" lang="ru">
+                                        <label class="custom-file-label" for="insuranceFile">Upload PNG or JPG</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group required row">
+                                <div class="label col-3 offset-1">Sample Collect Date: </div>
+                                <input type="datetime-local" name="sample_collect_datetime" class="form-control col-6 px-3" placeholder="Enter DOB">
                             </div>
 
                             <div class="text-center">
@@ -200,4 +272,78 @@
     </patient-collection>
 
 </div>
+@endsection
+
+@section('script')
+<script>
+    $('#symptoms').multiselect({
+        columns: 2,
+        placeholder: 'Select Symptoms',
+        minHeight: 0
+    });
+
+    function getSymptoms(testType) {
+        $('#test_type_symptoms').show()
+        $.ajax({
+            'type': "POST",
+            'dataType': 'json',
+            'url': "{{url('api/symptoms')}}",
+            'data': {
+                "test_type_id": testType.value
+            },
+            'success': function(symptoms) {
+                $('#symptoms').multiselect('loadOptions', symptoms);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        let autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {
+            types: ['geocode']
+        })
+
+        google.maps.event.addListener(autocomplete, "place_changed", function() {
+            var place = autocomplete.getPlace()
+
+            var address = place.formatted_address;
+            var latitude = place.geometry.location.lat();
+            var longitude = place.geometry.location.lng();
+            var latlng = new google.maps.LatLng(latitude, longitude);
+            var geocoder = (geocoder = new google.maps.Geocoder());
+            geocoder.geocode({
+                latLng: latlng
+            }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        var address = results[0].formatted_address;
+                        var zipcode =
+                            results[0].address_components[
+                                results[0].address_components.length - 1
+                            ].long_name;
+                        var country =
+                            results[0].address_components[
+                                results[0].address_components.length - 2
+                            ].long_name;
+                        var state =
+                            results[0].address_components[
+                                results[0].address_components.length - 3
+                            ].long_name;
+                        var city =
+                            results[0].address_components[
+                                results[0].address_components.length - 4
+                            ].long_name;
+
+                        console.log(address)
+
+                        $('input[name=address_2]').val(address)
+
+                        $('input[name=city]').val(city)
+                        $('input[name=state]').val(state)
+                        $('input[name=zipcode]').val(zipcode)
+                    }
+                }
+            })
+        })
+    })
+</script>
 @endsection

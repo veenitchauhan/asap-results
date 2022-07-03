@@ -40,4 +40,19 @@ class SymptomController extends Controller
 
         return back();
     }
+
+    public function api_get_symptoms(Request $request)
+    {
+        $symptoms = Symptom::where('test_type_id', $request->test_type_id)->get();
+
+        $data = [];
+        foreach ($symptoms as $symptom) {
+            $data[] = [
+                'name' => $symptom->name,
+                'value' => $symptom->id
+            ];
+        }
+
+        return $data;
+    }
 }

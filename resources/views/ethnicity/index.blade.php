@@ -12,7 +12,7 @@
             <div class="card">
 
                 <div class="card-header card-header-warning">
-                    <h4 class="card-title font-weight-bold">Ethnicitys</h4>
+                    <h4 class="card-title font-weight-bold">Ethnicities</h4>
                 </div>
 
                 <div class="card-body">
@@ -21,7 +21,7 @@
                         <table class="table">
                             <thead class="text-warning">
                                 <th class="font-weight-bold text-center">
-                                    Ethnicity ID
+                                    #
                                 </th>
                                 <th class="font-weight-bold">
                                     Name
@@ -33,7 +33,7 @@
                             <tbody>
                                 @foreach($ethnicities as $ethnicity)
                                 <tr>
-                                    <td class="text-center">{{ $ethnicity->id }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     <td>{{ $ethnicity->name }}</td>
                                     <td class="p-0 text-center">
                                         <button class="btn btn-sm btn-warning" data-id="{{ $ethnicity->id }}" data-name="{{ $ethnicity->name }}" onclick="editTestType(this)">Edit</button>

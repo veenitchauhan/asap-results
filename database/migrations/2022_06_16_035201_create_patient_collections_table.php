@@ -17,6 +17,7 @@ class CreatePatientCollectionsTable extends Migration
             $table->id();
             $table->integer('clinic_req_number');
             $table->integer('test_type_id');
+            $table->string('symptoms', 100);
             $table->integer('lab_id');
             $table->string('first_name', 100);
             $table->string('last_name', 100);
@@ -37,6 +38,15 @@ class CreatePatientCollectionsTable extends Migration
             $table->string('insurance_provider', 255);
             $table->string('insurance_policy_number', 100);
             $table->boolean('first_test')->default(0);
+            $table->boolean('pregnant')->default(0);
+            $table->boolean('healthcare')->default(0);
+            $table->boolean('symptomatic')->default(0);
+            $table->boolean('congregate')->default(0);
+            $table->boolean('hospitalized')->default(0);
+            $table->boolean('admitted')->default(0);
+            $table->string('proof_filename', 100)->nullable();
+            $table->string('insurance_card_front_filename', 100)->nullable();
+            $table->timestamp('sample_collect_datetime');
             $table->timestamps();
         });
     }

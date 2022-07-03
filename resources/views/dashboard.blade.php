@@ -10,8 +10,8 @@
         <a href="{{ route('user.index') }}">
           <div class="card-body text-center">
             <i class="material-icons text-warning">groups</i>
-            <h5 class="card-title font-weight-bold">Manage Staff</h5>
-            <p class="card-text text-dark">Staff Members: 2</p>
+            <h5 class="card-title font-weight-bold">Staff</h5>
+            <p class="card-text text-dark">Staff Members: {{ $staff_count }}</p>
           </div>
         </a>
       </div>
@@ -21,8 +21,8 @@
         <a href="{{ route('location.index') }}">
           <div class="card-body text-center">
             <i class="material-icons text-warning">navigation</i>
-            <h5 class="card-title font-weight-bold">Manage Locations</h5>
-            <p class="card-text text-dark">Locations: 2</p>
+            <h5 class="card-title font-weight-bold">Locations</h5>
+            <p class="card-text text-dark">Locations: {{ $locations_count }}</p>
           </div>
         </a>
       </div>
@@ -32,7 +32,7 @@
           <div class="card-body text-center">
             <i class="material-icons text-warning">workspaces</i>
             <h5 class="card-title font-weight-bold">Patient Collections</h5>
-            <p class="card-text text-dark">Patients: 2</p>
+            <p class="card-text text-dark">Patients: {{ $patients_count }}</p>
           </div>
         </a>
       </div>

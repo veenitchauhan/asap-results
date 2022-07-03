@@ -9,4 +9,9 @@ class PatientCollection extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function test_type()
+    {
+        return $this->hasOne(TestType::class, 'id', 'test_type_id');
+    }
 }

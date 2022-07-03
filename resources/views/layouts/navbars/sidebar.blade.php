@@ -6,7 +6,7 @@
   -->
   <div class="logo">
     <a href="{{ route('home') }}" class="simple-text logo-normal">
-      <img src="{{ url('/img/logo-100x74.png') }}" alt="">
+      <img src="{{ url('/img/logo-green-100x74.png') }}" alt="">
     </a>
   </div>
   <div class="sidebar-wrapper">
@@ -71,12 +71,12 @@
                 <p class="font-weight-bold">{{ __('Test Types') }}</p>
               </a>
             </li>
-            <li class="nav-item {{ $activePage == 'lab' ? ' active' : '' }}">
+            <!-- <li class="nav-item {{ $activePage == 'lab' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('lab.index') }}">
                 <i class="material-icons pt-1">biotech</i>
                 <p class="font-weight-bold">{{ __('Labs') }}</p>
               </a>
-            </li>
+            </li> -->
             <li class="nav-item {{ $activePage == 'race' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('race.index') }}">
                 <i class="material-icons pt-1">lock_reset</i>

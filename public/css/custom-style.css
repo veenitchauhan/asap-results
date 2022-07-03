@@ -16,3 +16,16 @@
 .bmd-form-group.is-focused label {
     color: #ffa726;
 }
+
+.toggle .toggle-group .btn {
+    padding-top: 7px;
+    font-weight: bold;
+}
+
+.ms-options-wrap {
+    width: 50%;
+}
+
+.ms-options label{
+    color: black;
+}

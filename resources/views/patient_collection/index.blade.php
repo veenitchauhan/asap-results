@@ -22,40 +22,40 @@
 
                         <table class="table">
                             <thead class="text-warning">
-                                <!-- <th class="font-weight-bold">
+                                <th class="font-weight-bold">
                                     Collection ID
                                 </th>
                                 <th class="font-weight-bold">
-                                    Government Issued ID
-                                </th> -->
+                                    Test Type
+                                </th>
                                 <th class="font-weight-bold">
-                                    Patient ID
+                                    Clinic Req #
                                 </th>
                                 <th class="font-weight-bold">
                                     Name
                                 </th>
                                 <th class="font-weight-bold">
-                                    City
-                                </th>
-                                <th class="font-weight-bold">
-                                    State
-                                </th>
-                                <th class="font-weight-bold">
-                                    Zipcode
+                                    Address
                                 </th>
                                 <th class="font-weight-bold">
                                     Date & time
+                                </th>
+                                <th class="font-weight-bold text-center">
+                                    Action
                                 </th>
                             </thead>
                             <tbody>
                                 @foreach($patient_collection as $patient)
                                 <tr>
-                                    <td>{{ $patient->id }}</td>
+                                    <td class="text-center">{{ $patient->id }}</td>
+                                    <td>{{ $patient->test_type->name }}</td>
+                                    <td>{{ $patient->clinic_req_number }}</td>
                                     <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
-                                    <td>{{ $patient->city }}</td>
-                                    <td>{{ $patient->state }}</td>
-                                    <td>{{ $patient->zipcode }}</td>
+                                    <td>{{ $patient->address }}</td>
                                     <td>{{ $patient->created_at }}</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-sm btn-warning">View</button>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

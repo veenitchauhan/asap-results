@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
+use App\Models\PatientCollection;
+use App\Models\User;
+
 class HomeController extends Controller
 {
     /**
@@ -21,6 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $data['staff_count'] = User::where('is_admin', 0)->count();
+        $data['locations_count'] = Location::count();
+        $data['patients_count'] = PatientCollection::count();
+        return view('dashboard')->with($data);
     }
 }
