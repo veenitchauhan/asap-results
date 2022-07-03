@@ -14,7 +14,35 @@ class PatientCollectionController extends Controller
 {
     public function index()
     {
+        $data['locations'] = Location::get();
         $data['patient_collection'] = PatientCollection::get();
+        return view('patient_collection.index')->with($data);
+    }
+
+    public function search(Request $request)
+    {
+        $data['locations'] = Location::get();
+
+        $where = [];
+        if ($request->first_name) {
+            $where['first_name'] = $request->first_name;
+        }
+        if ($request->last_name) {
+            $where['last_name'] = $request->last_name;
+        }
+        if ($request->date_of_birth) {
+            $where['date_of_birth'] = $request->date_of_birth;
+        }
+        if ($request->location_id) {
+            $where['lab_id'] = $request->location_id;
+        }
+
+        if (count($where) > 0) {
+            $data['patient_collection'] = PatientCollection::where($where)->get();
+        } else {
+            $data['patient_collection'] = PatientCollection::get();
+        }
+
         return view('patient_collection.index')->with($data);
     }
 

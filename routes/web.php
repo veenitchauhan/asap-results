@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController');
 	Route::resource('location', 'App\Http\Controllers\LocationController');
 	Route::resource('collection', 'App\Http\Controllers\PatientCollectionController');
+	Route::post('collection', 'App\Http\Controllers\PatientCollectionController@search')->name('collection.search');
 	Route::resource('test_type', 'App\Http\Controllers\TestTypeController');
 	Route::resource('symptom', 'App\Http\Controllers\SymptomController');
 	Route::resource('lab', 'App\Http\Controllers\LabController');
