@@ -3,6 +3,12 @@
     color: red;
 }
 
+.form-group.required span:after {
+    content: "*";
+    color: red;
+    margin: 5px;
+}
+
 .form-control,
 .is-focused .form-control {
     background-image: linear-gradient(
