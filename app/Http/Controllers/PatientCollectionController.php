@@ -57,6 +57,7 @@ class PatientCollectionController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $proof_filename = null;
         if ($request->file('proof')) {
             $proof_filename = $request->file('proof')->store('proofs');
@@ -112,7 +113,8 @@ class PatientCollectionController extends Controller
             'admitted' => $request->admitted ? 1 : 0,
             'proof_filename' => $proof_filename,
             'insurance_card_front_filename' => $insurance_card_front_filename,
-            'sample_collect_datetime' => $request->sample_collect_datetime
+            'sample_collect_datetime' => $request->sample_collect_datetime,
+            'signature' => $request->signature
         ]);
 
         return redirect()->route('collection.index');

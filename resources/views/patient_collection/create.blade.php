@@ -259,6 +259,17 @@
                                 <input type="datetime-local" name="sample_collect_datetime" class="form-control col-6 px-3" placeholder="Enter DOB">
                             </div>
 
+                            <div class="form-group row">
+                                <div class="label col-3 offset-1">
+                                    <button type="button" class="btn btn-warning" onclick="showSignatureBox()">
+                                        Open Signature Box
+                                    </button>
+                                </div>
+                                <div id="signature-image-field" class="input-group col-6 border pt-2">
+                                </div>
+                                <input type="hidden" name="signature">
+                            </div>
+
                             <div class="text-center">
                                 <button type="submit" class="btn btn-warning my-auto">Save</button>
                             </div>
@@ -272,10 +283,42 @@
     </patient-collection>
 
 </div>
+
+<div class="modal fade" id="signatureBox" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Race</h5>
+                <button type="button" class="close" onclick="hideSignatureBox()" aria-raceel="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="signatureBoxForm" class="signature-pad-form">
+                    <canvas height="100" width="465" class="signature-pad"></canvas>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="hideSignatureBox()">Close</button>
+                <button type="button" class="btn clear-button">Clear</button>
+                <button type="submit" form="signatureBoxForm" class="btn btn-warning">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
+<script src="{{ asset('js/signature.js')}}"></script>
 <script>
+    function showSignatureBox(){
+        $('#signatureBox').modal('show')
+    }
+
+    function hideSignatureBox(){
+        $('#signatureBox').modal('hide')
+    }
+
     $('#symptoms').multiselect({
         columns: 2,
         placeholder: 'Select Symptoms',

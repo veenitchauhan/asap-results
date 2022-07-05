@@ -1,0 +1,10 @@
+.signature-pad{
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+@media (pointer: coarse) {
+    body {
+        overflow: hidden;
+    }
+}

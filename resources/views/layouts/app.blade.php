@@ -19,6 +19,7 @@
   <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
   <link href="{{ asset('css') }}/custom-style.css" rel="stylesheet" />
   <link href="{{ asset('css') }}/jquery.multiselect.css" rel="stylesheet" />
+  <link href="{{ asset('css') }}/signature.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 </head>
 
@@ -156,7 +157,6 @@
   <script src="{{ asset('material') }}/js/settings.js"></script>
 
   <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
-
 
   <script src="{{ asset('js/jquery.multiselect.js')}}"></script>
 
