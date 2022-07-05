@@ -112,3 +112,11 @@
     </div>
 </div>
 @endsection
+
+@section('script')
+@if(session()->has('show_script'))
+<script>
+    $('#searchPatientModal').modal('show')
+</script>
+@endif
+@endsection
