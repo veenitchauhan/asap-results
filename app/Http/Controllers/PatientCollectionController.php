@@ -24,21 +24,27 @@ class PatientCollectionController extends Controller
         $data['locations'] = Location::get();
 
         $where = [];
+        $patient_collection = PatientCollection::query();
+
         if ($request->first_name) {
             $where['first_name'] = $request->first_name;
+            $patient_collection->orWhere('first_name', 'LIKE', '%' . $request->first_name . '%');
         }
         if ($request->last_name) {
             $where['last_name'] = $request->last_name;
+            $patient_collection->orWhere('last_name', 'LIKE', '%' . $request->last_name . '%');
         }
         if ($request->date_of_birth) {
             $where['date_of_birth'] = $request->date_of_birth;
+            $patient_collection->orWhere('date_of_birth', 'LIKE', '%' . $request->date_of_birth . '%');
         }
         if ($request->location_id) {
             $where['lab_id'] = $request->location_id;
+            $patient_collection->orWhere('lab_id', 'LIKE', '%' . $request->location_id . '%');
         }
 
         if (count($where) > 0) {
-            $data['patient_collection'] = PatientCollection::where($where)->get();
+            $data['patient_collection'] = $patient_collection->distinct()->get();
         } else {
             $data['patient_collection'] = PatientCollection::get();
         }
