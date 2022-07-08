@@ -30,11 +30,11 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     // protected $redirectTo = RouteServiceProvider::HOME; 
 
-    protected function authenticated(Request $request, $user)
-    {
-        $request->session()->flash('show_script', true);
-        return redirect('collection');
-    }
+    // protected function authenticated(Request $request, $user)
+    // {
+    //     $request->session()->flash('show_script', true);
+    //     return redirect('collection');
+    // }
 
     /**
      * Create a new controller instance.

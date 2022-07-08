@@ -24,9 +24,6 @@
                         <table class="table">
                             <thead class="text-warning">
                                 <th class="font-weight-bold">
-                                    ID
-                                </th>
-                                <th class="font-weight-bold">
                                     Test Type
                                 </th>
                                 <th class="font-weight-bold">
@@ -48,14 +45,17 @@
                             <tbody>
                                 @foreach($patient_collection as $patient)
                                 <tr>
-                                    <td class="text-center">{{ $patient->id }}</td>
                                     <td>{{ $patient->test_type->name }}</td>
                                     <td>{{ $patient->clinic_req_number }}</td>
-                                    <td>{{ $patient->first_name }} {{ $patient->last_name }}</td>
+                                    <td>{{ $patient->first_name }} {{ $patient->last_name }} (age)</td>
                                     <td>{{ $patient->address }}</td>
                                     <td>{{ $patient->created_at->format('d-M, Y H:m'); }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-warning">View</button>
+                                        <i class="material-icons text-warning">visibility</i>
+                                        <a href="{{ route('collection.edit', $patient->id) }}" >
+                                            <i class="material-icons" style="vertical-align:unset;">edit</i>
+                                        </a>
+                                        <i class="material-icons">bug_report</i>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -134,6 +134,11 @@
 @if(session()->has('show_script'))
 <script>
     $('#searchPatientModal').modal('show')
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("[rel='tooltip']").tooltip();
+    });
 </script>
 @endif
 @endsection
