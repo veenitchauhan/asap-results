@@ -14,4 +14,14 @@ class PatientCollection extends Model
     {
         return $this->hasOne(TestType::class, 'id', 'test_type_id');
     }
+
+    public function race()
+    {
+        return $this->hasOne(Race::class, 'id', 'race_id');
+    }
+
+    public function ethnicity()
+    {
+        return $this->hasOne(Ethnicity::class, 'id', 'ethnicity_id');
+    }
 }

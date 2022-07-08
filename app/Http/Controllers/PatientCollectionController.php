@@ -138,6 +138,12 @@ class PatientCollectionController extends Controller
         return view('patient_collection.edit')->with($data);
     }
 
+    public function show($patiend_id)
+    {
+        $data['patient'] = PatientCollection::find($patiend_id);
+        return view('patient_collection.show')->with($data);
+    }
+
     public function update(Request $request, $patiend_id)
     {
         // $request->except(['_token', 'id', '_method']);
@@ -158,8 +164,8 @@ class PatientCollectionController extends Controller
             'zipcode' => $request->zipcode,
             'phone_number' => $request->phone_number,
             'email_id' => $request->email_id,
-            'race_id' => $request->race,
-            'ethnicity_id' => $request->ethnicity,
+            'race_id' => $request->race_id,
+            'ethnicity_id' => $request->ethnicity_id,
             'proof_id' => $request->proof_id,
             'state_code' => $request->state_code,
             'insurance_provider' => $request->insurance_provider,

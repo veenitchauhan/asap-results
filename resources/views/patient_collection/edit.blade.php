@@ -133,7 +133,7 @@
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Choose Race: </div>
-                                <select name="race" class="col-6 custom-select">
+                                <select name="race_id" class="col-6 custom-select">
                                     <option value="" selected>--Select--</option>
                                     @foreach($races as $race)
                                     @if($race->id == $patient->race_id)
@@ -147,7 +147,7 @@
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Choose Ethnicity: </div>
-                                <select name="ethnicity" class="col-6 custom-select">
+                                <select name="ethnicity_id" class="col-6 custom-select">
                                     <option selected>--Select--</option>
                                     @foreach($ethnicities as $ethnicity)
                                     @if($ethnicity->id == $patient->ethnicity_id)

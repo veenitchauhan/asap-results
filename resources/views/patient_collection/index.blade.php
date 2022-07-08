@@ -51,8 +51,10 @@
                                     <td>{{ $patient->address }}</td>
                                     <td>{{ $patient->created_at->format('d-M, Y H:m'); }}</td>
                                     <td class="text-center">
-                                        <i class="material-icons text-warning">visibility</i>
-                                        <a href="{{ route('collection.edit', $patient->id) }}" >
+                                        <a href="{{ route('collection.show', $patient->id) }}">
+                                            <i class="material-icons text-warning" style="vertical-align:unset;">visibility</i>
+                                        </a>
+                                        <a href="{{ route('collection.edit', $patient->id) }}">
                                             <i class="material-icons" style="vertical-align:unset;">edit</i>
                                         </a>
                                         <i class="material-icons">bug_report</i>
@@ -136,7 +138,7 @@
     $('#searchPatientModal').modal('show')
 </script>
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $("[rel='tooltip']").tooltip();
     });
 </script>
