@@ -67,12 +67,12 @@ class PatientCollectionController extends Controller
         // dd($request->all());
         $proof_filename = null;
         if ($request->file('proof')) {
-            $proof_filename = $request->file('proof')->store('proofs');
+            $proof_filename = $request->file('proof')->store('public/proofs');
         }
 
         $insurance_card_front_filename = null;
         if ($request->file('insurance_card_front')) {
-            $insurance_card_front_filename = $request->file('insurance_card_front')->store('insurance_card_fronts');
+            $insurance_card_front_filename = $request->file('insurance_card_front')->store('public/insurance_card_fronts');
         }
 
         $validated = $request->validate([
@@ -118,8 +118,8 @@ class PatientCollectionController extends Controller
             'congregate' => $request->congregate ? 1 : 0,
             'hospitalized' => $request->hospitalized ? 1 : 0,
             'admitted' => $request->admitted ? 1 : 0,
-            'proof_filename' => $proof_filename,
-            'insurance_card_front_filename' => $insurance_card_front_filename,
+            'proof_filename' => str_replace("public", "storage", $proof_filename),
+            'insurance_card_front_filename' => str_replace("public", "storage", $insurance_card_front_filename),
             'sample_collect_datetime' => $request->sample_collect_datetime,
             'signature' => $request->signature
         ]);
@@ -140,7 +140,9 @@ class PatientCollectionController extends Controller
 
     public function show($patiend_id)
     {
+
         $data['patient'] = PatientCollection::find($patiend_id);
+        // dd($data);
         return view('patient_collection.show')->with($data);
     }
 

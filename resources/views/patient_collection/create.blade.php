@@ -49,7 +49,7 @@
                                 </select>
                             </div>
 
-                            <div id="test_type_symptoms" class="form-group required row" style="display: none">
+                            <div id="test_type_symptoms" class="form-group row" style="display: none">
                                 <div class="label col-3 offset-1">Symptoms: </div>
                                 <select name="symptoms[]" multiple id="symptoms" class="col-6 offset-4 custom-select">
                                 </select>
@@ -76,7 +76,7 @@
                                 <div class="label col-3 offset-1">DOB: </div>
                                 <input type="date" name="date_of_birth" class="form-control col-6 px-3" placeholder="Enter DOB">
                             </div>
-                            <div class="form-group required row">
+                            <div class="form-group row">
                                 <div class="label col-3 offset-1">Is Minor: </div>
                                 <input name="is_minor" type="checkbox" data-on="Yes" data-off="No" data-toggle="toggle" data-onstyle="warning" data-size="xs">
                             </div>

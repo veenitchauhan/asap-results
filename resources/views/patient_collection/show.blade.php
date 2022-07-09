@@ -111,6 +111,16 @@
                         <dt class="col-sm-3 offset-1">Admitted to the ICU:</dt>
                         <dd class="col-sm-8">{{ $patient->admitted ? 'Yes' : 'No' }}</dd>
 
+                        <dt class="col-sm-3 offset-1">Proof:</dt>
+                        <dd class="col-sm-8">
+                            <img src="{{ asset($patient->proof_filename) }}" alt="profile Pic" style="height: 100px;">
+                        </dd>
+
+                        <dt class="col-sm-3 offset-1">Insurance Card:</dt>
+                        <dd class="col-sm-8">
+                            <img src="{{ asset($patient->insurance_card_front_filename) }}" alt="profile Pic" style="height: 100px;">
+                        </dd>
+
                         <dt class="col-sm-3 offset-1">Sample Collect Date:</dt>
                         <dd class="col-sm-8">{{ $patient->sample_collect_datetime }}</dd>
                     </dl>
