@@ -9,7 +9,10 @@
                 <button type="button" class="btn btn-warning">Add Collection</button>
             </a>
             <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#searchPatientModal">
-                Search
+                Search Box
+            </button>
+            <button type="button" class="btn btn-warning">
+                SEARCH INSURANCE
             </button>
 
             <div class="card">
@@ -79,15 +82,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <!-- <button type="button" class="close" data-dismiss="modal" aria-raceel="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button> -->
                 <img src="{{ url('/img/logo-green-100x74.png') }}" class="mx-auto">
             </div>
             <div class="modal-body pt-0">
-                <a href="{{ route('collection.create') }}">
-                    <button class="btn btn-warning w-100">CREATE PATIENT</button>
-                </a>
                 <form id="searchPatientForm" action="{{ route('collection.search') }}" method="post" class="m-0">@csrf
                     <div class="form-group required row">
                         <span class="col-4">First Name:</span>
@@ -120,14 +117,11 @@
                     </div>
                     <button type="submit" class="btn btn-warning w-100">SEARCH RETURING PATIENT</button>
                 </form>
-                <div class="text-center">- Or -</div>
-                <button class="btn btn-warning w-100">PATIENT ELIGIBILITY</button>
-                <div class="text-center">- Or -</div>
-                <button class="btn btn-warning w-100">PATIENT DISCOVERY</button>
+                <button class="btn btn-warning w-100">Search PATIENT ELIGIBILITY</button>
+                <button class="btn btn-warning w-100">Search PATIENT DISCOVERY</button>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="searchPatientForm" class="btn btn-warning">Search</button>
             </div>
         </div>
     </div>

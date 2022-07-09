@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
   <div class="container">
     <div class="navbar-wrapper">
-      <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ url('/img/logo-green-100x74.png') }}" alt=""></a>
+      <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ url('/img/logo-green.png') }}" height="150" alt=""></a>
     </div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
       <span class="sr-only">Toggle navigation</span>
