@@ -105,8 +105,8 @@ class PatientCollectionController extends Controller
             'zipcode' => $request->zipcode,
             'phone_number' => $request->phone_number,
             'email_id' => $request->email_id,
-            'race_id' => $request->race,
-            'ethnicity_id' => $request->ethnicity,
+            'race_id' => $request->race_id,
+            'ethnicity_id' => $request->ethnicity_id,
             'proof_id' => $request->proof_id,
             'state_code' => $request->state_code,
             'insurance_provider' => $request->insurance_provider,
@@ -138,52 +138,71 @@ class PatientCollectionController extends Controller
         return view('patient_collection.edit')->with($data);
     }
 
+    public function retest($patient_id)
+    {
+        $data['test_types'] = TestType::get();
+        $data['locations'] = Location::get();
+        $data['races'] = Race::get();
+        $data['ethnicities'] = Ethnicity::get();
+        $data['patient'] = PatientCollection::find($patient_id);
+        $data['symptoms'] = Symptom::where('test_type_id', $data['patient']->test_type_id)->get();
+        return view('patient_collection.re-test')->with($data);
+    }
+
     public function show($patiend_id)
     {
-
         $data['patient'] = PatientCollection::find($patiend_id);
-        // dd($data);
         return view('patient_collection.show')->with($data);
     }
 
     public function update(Request $request, $patiend_id)
     {
-        // $request->except(['_token', 'id', '_method']);
-        // $request = $request->except(['_token', 'id', '_method']);
-        PatientCollection::find($patiend_id)->update([
-            'clinic_req_number' => $request->clinic_req_number,
-            'test_type_id' => $request->test_type_id,
-            'lab_id' => $request->lab_id,
-            'symptoms' => implode(',', $request->symptoms),
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'date_of_birth' => $request->date_of_birth,
-            'gender' => $request->gender,
-            'address' => $request->address,
-            'address_2' => $request->address_2,
-            'city' => $request->city,
-            'state' => $request->state,
-            'zipcode' => $request->zipcode,
-            'phone_number' => $request->phone_number,
-            'email_id' => $request->email_id,
-            'race_id' => $request->race_id,
-            'ethnicity_id' => $request->ethnicity_id,
-            'proof_id' => $request->proof_id,
-            'state_code' => $request->state_code,
-            'insurance_provider' => $request->insurance_provider,
-            'insurance_policy_number' => $request->insurance_policy_number,
-            'first_test' => $request->first_test ? 1 : 0,
-            'pregnant' => $request->pregnant ? 1 : 0,
-            'healthcare' => $request->healthcare ? 1 : 0,
-            'symptomatic' => $request->symptomatic ? 1 : 0,
-            'congregate' => $request->congregate ? 1 : 0,
-            'hospitalized' => $request->hospitalized ? 1 : 0,
-            'admitted' => $request->admitted ? 1 : 0,
-            // 'proof_filename' => $proof_filename,
-            // 'insurance_card_front_filename' => $insurance_card_front_filename,
-            'sample_collect_datetime' => $request->sample_collect_datetime,
-            'signature' => $request->signature
-        ]);
-        return back();
+        $updates = $request->except(['_token', 'id', '_method']);
+
+        if ($request->symptoms) {
+            $updates['symptoms'] = implode(',', $request->symptoms);
+        }
+
+        if ($request->is_minor) {
+            $updates['is_minor'] = $request->is_minor ? 1 : 0;
+        }
+        if ($request->first_test) {
+            $updates['first_test'] = $request->first_test ? 1 : 0;
+        }
+        if ($request->pregnant) {
+            $updates['pregnant'] = $request->pregnant ? 1 : 0;
+        }
+        if ($request->healthcare) {
+            $updates['healthcare'] = $request->healthcare ? 1 : 0;
+        }
+        if ($request->symptomatic) {
+            $updates['symptomatic'] = $request->symptomatic ? 1 : 0;
+        }
+        if ($request->congregate) {
+            $updates['congregate'] = $request->congregate ? 1 : 0;
+        }
+        if ($request->hospitalized) {
+            $updates['hospitalized'] = $request->hospitalized ? 1 : 0;
+        }
+        if ($request->admitted) {
+            $updates['admitted'] = $request->admitted ? 1 : 0;
+        }
+
+        if ($request->file('proof')) {
+            $updates['proof_filename'] = str_replace("public", "storage", $request->file('proof')->store('public/proofs'));
+            unset($updates['proof']);
+        }
+        if ($request->file('insurance_card_front')) {
+            $updates['insurance_card_front_filename'] = str_replace("public", "storage", $request->file('insurance_card_front')->store('public/insurance_card_fronts'));
+            unset($updates['insurance_card_front']);
+        }
+
+        if (!$request->signature) {
+            unset($updates['signature']);
+        }
+
+        PatientCollection::find($patiend_id)->update($updates);
+
+        return redirect()->route('collection.index');
     }
 }

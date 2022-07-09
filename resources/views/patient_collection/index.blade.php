@@ -47,7 +47,7 @@
                                 <tr>
                                     <td>{{ $patient->test_type->name }}</td>
                                     <td>{{ $patient->clinic_req_number }}</td>
-                                    <td>{{ $patient->first_name }} {{ $patient->last_name }} (age)</td>
+                                    <td>{{ $patient->first_name }} {{ $patient->last_name }} ({{ $patient->age }})</td>
                                     <td>{{ $patient->address }}</td>
                                     <td>{{ $patient->created_at->format('d-M, Y H:m'); }}</td>
                                     <td class="text-center">
@@ -57,7 +57,9 @@
                                         <a href="{{ route('collection.edit', $patient->id) }}">
                                             <i class="material-icons" style="vertical-align:unset;">edit</i>
                                         </a>
-                                        <i class="material-icons">bug_report</i>
+                                        <a href="{{ route('collection.retest', $patient->id) }}">
+                                            <i class="material-icons" style="vertical-align:unset;">bug_report</i>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -102,7 +104,7 @@
                     <div class="form-group required row">
                         <span class="col-4">Date of Birth:</span>
                         <div class="col-8">
-                            <input type="date" name="date_of_birth" class="form-control" placeholder="First Name">
+                            <input type="date" name="date_of_birth" class="form-control" placeholder="Date of Birth">
                         </div>
                     </div>
                     <div class="form-group row">

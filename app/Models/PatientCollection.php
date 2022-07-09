@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,5 +24,16 @@ class PatientCollection extends Model
     public function ethnicity()
     {
         return $this->hasOne(Ethnicity::class, 'id', 'ethnicity_id');
+    }
+
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->date_of_birth)->diff(Carbon::now())->y;
+    }
+
+    public function getSymptomDetailsAttribute()
+    {
+        $symptom_ids = explode(',', $this->symptoms);
+        return Symptom::whereIn('id', $symptom_ids)->get();
     }
 }

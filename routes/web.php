@@ -22,8 +22,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController');
 	Route::resource('location', 'App\Http\Controllers\LocationController');
-	Route::get('init', 'App\Http\Controllers\LocationController@init');
 	Route::resource('collection', 'App\Http\Controllers\PatientCollectionController');
+	Route::get('retest/{patient_id}', 'App\Http\Controllers\PatientCollectionController@retest')->name('collection.retest');
 	Route::post('search-patient', 'App\Http\Controllers\PatientCollectionController@search')->name('collection.search');
 	Route::resource('test_type', 'App\Http\Controllers\TestTypeController');
 	Route::resource('symptom', 'App\Http\Controllers\SymptomController');

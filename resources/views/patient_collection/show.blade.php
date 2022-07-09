@@ -34,7 +34,11 @@
                         <dd class="col-sm-8">{{ $patient->test_type->name }}</dd>
 
                         <dt class="col-sm-3 offset-1">Symptoms:</dt>
-                        <dd class="col-sm-8">{{ $patient->symptoms }}</dd>
+                        <dd class="col-sm-8">
+                            @foreach($patient->symptom_details as $detail)
+                            {{ $detail->name }}, 
+                            @endforeach
+                        </dd>
 
                         <!-- <dt class="col-sm-3 offset-1">Location:</dt>
                         <dd class="col-sm-8">{{ $patient->lab_id }}</dd> -->
@@ -111,15 +115,26 @@
                         <dt class="col-sm-3 offset-1">Admitted to the ICU:</dt>
                         <dd class="col-sm-8">{{ $patient->admitted ? 'Yes' : 'No' }}</dd>
 
+                        @if($patient->proof_filename)
                         <dt class="col-sm-3 offset-1">Proof:</dt>
                         <dd class="col-sm-8">
                             <img src="{{ asset($patient->proof_filename) }}" alt="profile Pic" style="height: 100px;">
                         </dd>
+                        @endif
 
+                        @if($patient->insurance_card_front_filename)
                         <dt class="col-sm-3 offset-1">Insurance Card:</dt>
                         <dd class="col-sm-8">
                             <img src="{{ asset($patient->insurance_card_front_filename) }}" alt="profile Pic" style="height: 100px;">
                         </dd>
+                        @endif
+
+                        @if($patient->signature)
+                        <dt class="col-sm-3 offset-1">Signature:</dt>
+                        <dd class="col-sm-8">
+                            <img src="{{ $patient->signature }}" alt="signature" style="height: 100px;">
+                        </dd>
+                        @endif
 
                         <dt class="col-sm-3 offset-1">Sample Collect Date:</dt>
                         <dd class="col-sm-8">{{ $patient->sample_collect_datetime }}</dd>

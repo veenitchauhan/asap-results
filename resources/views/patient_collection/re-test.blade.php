@@ -32,8 +32,8 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('collection.update', $patient->id) }}" method="POST" enctype="multipart/form-data">
-                            @csrf @method('PUT')
+                        <form action="{{ route('collection.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <input type="hidden" name="id">
                             <div class="form-group row">
                                 <div class="label col-3 offset-1">Clinic Req #: </div>
@@ -246,7 +246,7 @@
 
                             <div class="row m-1">
                                 <div class="label col-3 offset-1 pt-3">SSN/Driver/Passport File (JPG, PNG)</div>
-                                <img src="{{ asset($patient->proof_filename) }}" id="proofImg" alt="profile Pic" style="height: 100px;" class="col-3">
+                                <img src="" id="proofImg" alt="profile Pic" style="height: 100px;" class="col-3">
                                 <div class="input-group col-3 pt-2">
                                     <div class="custom-file">
                                         <input type="file" name="proof" id="proofFile">
@@ -256,7 +256,7 @@
 
                             <div class="row m-1 mt-2">
                                 <div class="label col-3 offset-1 pt-3">Insurance Card Front (JPG, PNG)</div>
-                                <img src="{{ asset($patient->insurance_card_front_filename) }}" id="insuranceImg" alt="profile Pic" style="height: 100px;" class="col-3">
+                                <img src="" id="insuranceImg" alt="profile Pic" style="height: 100px;" class="col-3">
                                 <div class="input-group col-3 pt-2">
                                     <div class="custom-file">
                                         <input type="file" name="insurance_card_front" id="insuranceFile">
@@ -276,13 +276,13 @@
                                     </button>
                                 </div>
                                 <div id="signature-image-field" class="input-group col-6 border pt-2">
-                                    <img src="{{ $patient->signature }}" alt="">
+                                    <img src="" alt="">
                                 </div>
                                 <input type="hidden" name="signature">
                             </div>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-warning my-auto">Update</button>
+                                <button type="submit" class="btn btn-warning my-auto">Save</button>
                             </div>
                         </form>
 

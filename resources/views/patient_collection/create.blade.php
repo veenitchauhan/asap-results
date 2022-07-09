@@ -159,10 +159,10 @@
                                     <option value="4">Other</option>
                                 </select>
                             </div>
-                            <div class="form-group required row">
+                            <!-- <div class="form-group required row">
                                 <div class="label col-3 offset-1">Select ID No.: </div>
                                 <input type="text" name="id" class="form-control col-6 px-3" placeholder="00000000">
-                            </div>
+                            </div> -->
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">State listed on selected ID: </div>
                                 <input type="text" name="state_code" class="form-control col-6 px-3" placeholder="State Code">
