@@ -20,6 +20,7 @@
   <link href="{{ asset('css') }}/custom-style.css" rel="stylesheet" />
   <link href="{{ asset('css') }}/jquery.multiselect.css" rel="stylesheet" />
   <link href="{{ asset('css') }}/signature.css" rel="stylesheet" />
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" media="all" />
   <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
 </head>
 
@@ -83,6 +84,8 @@
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="{{ asset('material') }}/demo/demo.js"></script>
   <script src="{{ asset('material') }}/js/settings.js"></script>
+
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha384-tc3TMXCcTCib89yECEQXI4e6DhhlwNrqzYpvyeSqBD2vB/KugQH7o3p+/UtKuS5L" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 

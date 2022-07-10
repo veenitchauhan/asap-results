@@ -15,6 +15,13 @@
                 SEARCH INSURANCE
             </button>
 
+            <div class="col-3 float-right">
+                <div class="input-group no-border">
+                    <input type="text" value="" class="form-control selector" placeholder="Search...">
+                    <i class="material-icons mt-2">search</i>
+                </div>
+            </div>
+
             <div class="card">
 
                 <div class="card-header card-header-warning">
@@ -23,7 +30,7 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-
+                        <input type="hidden" id="patient_collection" data-patient-collection="{{ $patient_collection }}">
                         <table class="table">
                             <thead class="text-warning">
                                 <th class="font-weight-bold">
@@ -129,14 +136,23 @@
 @endsection
 
 @section('script')
-@if(session()->has('show_script'))
 <script>
-    $('#searchPatientModal').modal('show')
-</script>
-<script type="text/javascript">
     $(function() {
-        $("[rel='tooltip']").tooltip();
+        let patients = JSON.parse(document.getElementById('patient_collection').dataset.patientCollection)
+        patients = $.map(patients, function(value, key) {
+            return {
+                label: value.first_name + ' ' + value.last_name,
+                value: value.id
+            }
+        })
+
+        $(".selector").autocomplete({
+            source: patients,
+            select: function(event, ui) {
+                let id = ui.item.value
+                window.location.href = "collection/"+id;
+            }
+        });
     });
 </script>
-@endif
 @endsection
