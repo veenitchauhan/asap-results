@@ -22,6 +22,22 @@ class PatientCollectionController extends Controller
 
     public function search(Request $request)
     {
+        // dd($request->all());
+        switch ($request->action) {
+            case 'eligibility':
+                $data = $this->searchEligibility($request);
+                break;
+
+            default:
+                $data = $this->searchPatient($request);
+                break;
+        }
+
+        return view('patient_collection.index')->with($data);
+    }
+
+    private function searchPatient($request)
+    {
         $data['locations'] = Location::get();
 
         $where = [];
@@ -50,7 +66,69 @@ class PatientCollectionController extends Controller
             $data['patient_collection'] = PatientCollection::get();
         }
 
-        return view('patient_collection.index')->with($data);
+        return $data;
+    }
+
+    public function searchEligibility($request)
+    {
+        // dd($request->all());
+        $authorization = "Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkI5QTI3QTZBMDRCMEZCOUY0QzlGNTE2NTkwMEQwQjI2NUM2RkI3NTAiLCJ0eXAiOiJKV1QiLCJ4NXQiOiJ1YUo2YWdTdy01OU1uMUZsa0EwTEpseHZ0MUEifQ.eyJuYmYiOjE2NTk0NTI0MDgsImV4cCI6MTY1OTQ1NjAwOCwiaXNzIjoiaHR0cHM6Ly9pZHAubXlhYmlsaXR5bmV0d29yay5jb20iLCJhdWQiOlsiaHR0cHM6Ly9pZHAubXlhYmlsaXR5bmV0d29yay5jb20vcmVzb3VyY2VzIiwiYWJpbGl0eTphY2Nlc3NhcGkiXSwiY2xpZW50X2lkIjoiYXNhcC1yZXN1bHRzIiwianRpIjoiY2JiYjM5NDEtN2QyOC00Y2QyLTlmNzMtY2NmMmRmMTQzODMwIiwic3ViIjoiNGQxNTZkMTEtM2Q2Ny00MzdmLTgyNTctZmI2MjZhOWUwMjgxIiwiZW1haWwiOiJqb2VsQGFzYXAtcmVzdWx0cy5jb20iLCJnaXZlbl9uYW1lIjoiSm9lbCIsImZhbWlseV9uYW1lIjoiTmVsc29uIiwiYWJpbGl0eSI6eyJjcm1BY2NvdW50TnVtYmVyIjoiMTAyMzAyMSIsImFjY291bnRLZXkiOiIvYzFOakN3RDRNaGlOa1JWM1h1MFltdCtISUU9In0sImFiaWxpdHk6ZW50aXRsZW1lbnRzIjpbeyJhY2NvdW50S2V5IjoiL2MxTmpDd0Q0TWhpTmtSVjNYdTBZbXQrSElFPSIsImVudGl0bGVtZW50IjoiYWJpbGl0eTphY2Nlc3NhcGkifSx7ImFjY291bnRLZXkiOiIvYzFOakN3RDRNaGlOa1JWM1h1MFltdCtISUU9IiwiZW50aXRsZW1lbnQiOiJhYmlsaXR5OmFjY2Vzc2FsbHBheWVyZWxpZ2liaWxpdHkifV19.ouLC-Pd6bLB-bQjaIvG_d--bsMAu6mE2Xq1cnrI6CLSGeM4XetG09OiGvTwSpUI_EPDi1QkwJeNkOBBrAuZATsRVW739eJfBqeMGo8Es4OSmWTVDBHG5YXQXnVcW_P_tWuu6CQpyF8-_TEIfhWWoHF3SUnqcGgrt1IrW6yobqxMqycx7oSo9sH9ybWHSP54SMl6DECQj4iy1IoKeS-Qwg9XlRXW4BQVB-krormkByJinSA2620XytcoLxcu6IG2oFgwYXSBagIrBGLr0kjMVfHqFAdtC6JRSkbnC6pVSmRZaFe7j-68IAWJEqWydmM5HQAl8iQDOi99cEpE2b4CaGA";
+
+        $host = 'https://api.abilitynetwork.com/v1/eligibilities';
+        $username = 'joel@asap-results.com';
+        $password = 'Asap@123*';
+        $client_id = 'asap-results';
+        $client_secret = 'm4deQGq54IwbuAXOFEbFdA==';
+
+        // $first_name = "Angela";
+        // $last_name = "Jenkins";
+        // $date_of_birth = "1963-07-19";
+
+        $first_name = $request->first_name;
+        $last_name = $request->last_name;
+        $date_of_birth = $request->date_of_birth;
+        $insurance_id = $request->insurance_id;
+
+        $post = [
+            "eligibilityRequest" => [
+                [
+                    "provider" => [
+                        "npi" => 1902846306,
+                        "lastName" => "ASAP Results, LLC"
+                    ],
+                    "subscriber" => [
+                        "memberIdentifier" => $insurance_id,
+                        "firstName" => $first_name,
+                        "lastName" => $last_name,
+                        "dateOfBirth" => $date_of_birth
+                    ],
+                    "serviceDates" => [
+                        "start" => "2021-11-15"
+                    ],
+                    "serviceTypeCodes" => [
+                        "serviceTypeCode" => ["30"]
+                    ],
+                    "payerIdentifier" => 10351
+                ]
+            ]
+        ];
+        $patientRecord = json_encode($post);
+
+        echo '<pre>'; echo $patientRecord; 
+        // die;
+
+        $ch = curl_init($host);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $patientRecord);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $return = curl_exec($ch);
+        curl_close($ch);
+
+        dd($return);
     }
 
     public function create()

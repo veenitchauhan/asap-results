@@ -111,6 +111,12 @@
                             <input type="date" name="date_of_birth" class="form-control" placeholder="Date of Birth">
                         </div>
                     </div>
+                    <div class="form-group required row">
+                        <span class="col-4">Insurance ID:</span>
+                        <div class="col-8">
+                            <input type="text" name="insurance_id" class="form-control" placeholder="Insurance ID">
+                        </div>
+                    </div>
                     <div class="form-group row">
                         <span class="col-4">Collection Site:</span>
                         <div class="col-8">
@@ -122,9 +128,9 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-warning w-100">SEARCH RETURING PATIENT</button>
+                    <button type="submit" name="action" value="rotating" class="btn btn-warning w-100">SEARCH RETURING PATIENT</button>
+                    <button type="submit" name="action" value="eligibility" class="btn btn-warning w-100">Search PATIENT ELIGIBILITY</button>
                 </form>
-                <button class="btn btn-warning w-100" onclick="searchPatientEligibilty()">Search PATIENT ELIGIBILITY</button>
                 <button class="btn btn-warning w-100">Search PATIENT DISCOVERY</button>
             </div>
             <div class="modal-footer">
