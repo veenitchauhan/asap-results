@@ -124,7 +124,7 @@
                     </div>
                     <button type="submit" class="btn btn-warning w-100">SEARCH RETURING PATIENT</button>
                 </form>
-                <button class="btn btn-warning w-100">Search PATIENT ELIGIBILITY</button>
+                <button class="btn btn-warning w-100" onclick="searchPatientEligibilty()">Search PATIENT ELIGIBILITY</button>
                 <button class="btn btn-warning w-100">Search PATIENT DISCOVERY</button>
             </div>
             <div class="modal-footer">
@@ -150,9 +150,17 @@
             source: patients,
             select: function(event, ui) {
                 let id = ui.item.value
-                window.location.href = "collection/"+id;
+                window.location.href = "collection/" + id;
             }
         });
     });
+
+    function searchPatientEligibilty() {
+        console.log('calling api')
+        console.log($('#searchPatientForm').serializeArray())
+        let data = $('#searchPatientForm').serialize()
+        let url = "{{ url('api/eligibilty') }}"
+        $.post(url, data);
+    }
 </script>
 @endsection

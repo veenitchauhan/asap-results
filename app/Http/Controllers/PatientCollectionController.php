@@ -205,4 +205,10 @@ class PatientCollectionController extends Controller
 
         return redirect()->route('collection.index');
     }
+
+    public function api_check_eligibilty(Request $request)
+    {
+        $eligible = true;
+        return $eligible;
+    }
 }
