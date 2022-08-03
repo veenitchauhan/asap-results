@@ -118,6 +118,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <span class="col-4">Eligibility Payers:</span>
+                        <div class="col-8">
+                            <select name="payer_id" class="custom-select">
+                                <option value="">-- Select Payer --</option>
+                                @foreach($eligibility_payers as $payer)
+                                <option value="{{ $payer->payer_id }}">{{ $payer->payer_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row">
                         <span class="col-4">Collection Site:</span>
                         <div class="col-8">
                             <select name="location_id" class="custom-select">
@@ -127,7 +138,7 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     <button type="submit" name="action" value="rotating" class="btn btn-warning w-100">SEARCH RETURING PATIENT</button>
                     <button type="submit" name="action" value="eligibility" class="btn btn-warning w-100">Search PATIENT ELIGIBILITY</button>
                 </form>

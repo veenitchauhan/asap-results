@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EligibilityPayer;
 use App\Models\Ethnicity;
 use App\Models\Lab;
 use App\Models\Location;
@@ -16,6 +17,7 @@ class PatientCollectionController extends Controller
     public function index()
     {
         $data['locations'] = Location::get();
+        $data['eligibility_payers'] = EligibilityPayer::orderBy('payer_name')->get();
         $data['patient_collection'] = PatientCollection::get();
         return view('patient_collection.index')->with($data);
     }
@@ -80,15 +82,18 @@ class PatientCollectionController extends Controller
         $password = 'Asap@123*';
         $client_id = 'asap-results';
         $client_secret = 'm4deQGq54IwbuAXOFEbFdA==';
-
+        
         // $first_name = "Angela";
         // $last_name = "Jenkins";
         // $date_of_birth = "1963-07-19";
+        // $insurance_id = 71345808;
+        // $payer_id = 10351;
 
         $first_name = $request->first_name;
         $last_name = $request->last_name;
         $date_of_birth = $request->date_of_birth;
         $insurance_id = $request->insurance_id;
+        $payer_id = $request->payer_id;
 
         $post = [
             "eligibilityRequest" => [
@@ -109,7 +114,7 @@ class PatientCollectionController extends Controller
                     "serviceTypeCodes" => [
                         "serviceTypeCode" => ["30"]
                     ],
-                    "payerIdentifier" => 10351
+                    "payerIdentifier" => $payer_id
                 ]
             ]
         ];

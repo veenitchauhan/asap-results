@@ -39,3 +39,7 @@
 .ui-autocomplete {
     z-index: 3 !important;
 }
+
+.sidebar .sidebar-wrapper {
+    height: calc(100vh - 200px);
+}
