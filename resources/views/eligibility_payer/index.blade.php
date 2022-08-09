@@ -1,18 +1,18 @@
-@extends('layouts.app', ['activePage' => 'ethnicity', 'titlePage' => __('Ethnicitys')])
+@extends('layouts.app', ['activePage' => 'eligibility_payer', 'titlePage' => __('Eligibility Payer')])
 
 @section('content')
 <div class="content">
     <div class="container-fluid">
         <div class="col-md-12">
 
-            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addNewEthnicity">
-                Add New Ethnicity
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#addNewPayer">
+                Add New Payer
             </button>
 
             <div class="card">
 
                 <div class="card-header card-header-warning">
-                    <h4 class="card-title font-weight-bold">Ethnicities</h4>
+                    <h4 class="card-title font-weight-bold">Eligibility Payers</h4>
                 </div>
 
                 <div class="card-body">
@@ -24,20 +24,24 @@
                                     #
                                 </th>
                                 <th class="font-weight-bold">
-                                    Name
+                                    Payer ID
+                                </th>
+                                <th class="font-weight-bold">
+                                    Payer Name
                                 </th>
                                 <th class="font-weight-bold text-center">
                                     Actions
                                 </th>
                             </thead>
                             <tbody>
-                                @foreach($ethnicities as $ethnicity)
+                                @foreach($eligibility_payers as $payer)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ $ethnicity->name }}</td>
+                                    <td>{{ $payer->payer_id }}</td>
+                                    <td>{{ $payer->payer_name }}</td>
                                     <td class="p-0 text-center">
-                                        <button class="btn btn-sm btn-warning" data-id="{{ $ethnicity->id }}" data-name="{{ $ethnicity->name }}" onclick="editTestType(this)">Edit</button>
-                                        <form action="{{ route('ethnicity.destroy', $ethnicity->id) }}" method="post" class="d-inline">@csrf @method('DELETE')
+                                        <button class="btn btn-sm btn-warning" data-id="{{ $payer->id }}" data-payer-id="{{ $payer->payer_id }}" data-payer-name="{{ $payer->payer_name }}" onclick="editEligibilityPayer(this)">Edit</button>
+                                        <form action="{{ route('eligibility-payer.destroy', $payer->id) }}" method="post" class="d-inline">@csrf @method('DELETE')
                                             <button class="btn btn-sm btn-danger">Delete</button>
                                         </form>
                                     </td>
@@ -55,33 +59,37 @@
     </div>
 </div>
 
-<div class="modal fade" id="addNewEthnicity" tabindex="-1" role="dialog">
+<div class="modal fade" id="addNewPayer" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Add New Ethnicity</h5>
+                <h5 class="modal-title">Add New Payer</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-ethnicityel="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addNewEthnicityForm" method="post" action="{{ route('ethnicity.store') }}">
+                <form id="addNewPayerForm" method="post" action="{{ route('eligibility-payer.store') }}">
                     @csrf
                     <div class="form-group">
-                        <span>Ethnicity Name</span>
-                        <input type="text" name="name" class="form-control" placeholder="Enter Ethnicity name">
+                        <span>Eligibility Payer ID</span>
+                        <input type="integer" name="payer_id" class="form-control" placeholder="Enter ethnicity name">
+                    </div>
+                    <div class="form-group">
+                        <span>Eligibility Payer Name</span>
+                        <input type="text" name="payer_name" class="form-control" placeholder="Enter ethnicity name">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="addNewEthnicityForm" class="btn btn-warning">Save</button>
+                <button type="submit" form="addNewPayerForm" class="btn btn-warning">Save</button>
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="editTestType" tabindex="-1" role="dialog">
+<div class="modal fade" id="editPayer" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -91,18 +99,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editTestTypeForm" method="post" action="{{ route('ethnicity.update', 0) }}">@csrf @method('PUT')
-                    @csrf
+                <form id="editPayerForm" method="post" action="{{ route('eligibility-payer.update', 0) }}">
+                    @csrf @method('PUT')
+                    <input type="hidden" name="id">
                     <div class="form-group">
-                        <span>Ethnicity Name</span>
-                        <input type="hidden" name="ethnicity_id">
-                        <input type="text" name="name" class="form-control" placeholder="Enter ethnicity name">
+                        <span>Eligibility Payer ID</span>
+                        <input type="integer" name="payer_id" class="form-control" placeholder="Enter ethnicity name">
+                    </div>
+                    <div class="form-group">
+                        <span>Eligibility Payer Name</span>
+                        <input type="text" name="payer_name" class="form-control" placeholder="Enter ethnicity name">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
-                <button type="submit" form="editTestTypeForm" class="btn btn-warning">Update</button>
+                <button type="submit" form="editPayerForm" class="btn btn-warning">Update</button>
             </div>
         </div>
     </div>
@@ -110,14 +122,16 @@
 @endsection
 
 <script>
-    function editTestType(elm){
+    function editEligibilityPayer(elm) {
         console.log(elm.dataset)
-        $('input[name="ethnicity_id"]').val(elm.dataset.id)
-        $('input[name="name"]').val(elm.dataset.name)
-        $("#editTestType").modal('show')
+
+        $('input[name="id"]').val(elm.dataset.id)
+        $('input[name="payer_id"]').val(elm.dataset.payerId)
+        $('input[name="payer_name"]').val(elm.dataset.payerName)
+        $("#editPayer").modal('show')
     }
 
     function closeModal() {
-        $("#editTestType").modal('hide')
+        $("#editPayer").modal('hide')
     }
 </script>

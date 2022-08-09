@@ -30,4 +30,5 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('lab', 'App\Http\Controllers\LabController');
 	Route::resource('race', 'App\Http\Controllers\RaceController');
 	Route::resource('ethnicity', 'App\Http\Controllers\EthnicityController');
+	Route::resource('eligibility-payer', 'App\Http\Controllers\EligibityPayerController');
 });

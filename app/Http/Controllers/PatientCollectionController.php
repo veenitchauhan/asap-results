@@ -82,59 +82,58 @@ class PatientCollectionController extends Controller
         $password = 'Asap@123*';
         $client_id = 'asap-results';
         $client_secret = 'm4deQGq54IwbuAXOFEbFdA==';
-        
-        // $first_name = "Angela";
-        // $last_name = "Jenkins";
-        // $date_of_birth = "1963-07-19";
-        // $insurance_id = 71345808;
+
+        // $first_name = "james";
+        // $last_name = "treadwell";
+        // $date_of_birth = "1972-12-24";
+        // $insurance_id = "117530589";
         // $payer_id = 10351;
 
         $first_name = $request->first_name;
         $last_name = $request->last_name;
         $date_of_birth = $request->date_of_birth;
         $insurance_id = $request->insurance_id;
-        $payer_id = $request->payer_id;
+        $payer_id = (int)$request->payer_id;
 
         $post = [
             "eligibilityRequest" => [
-                [
-                    "provider" => [
-                        "npi" => 1902846306,
-                        "lastName" => "ASAP Results, LLC"
-                    ],
-                    "subscriber" => [
-                        "memberIdentifier" => $insurance_id,
-                        "firstName" => $first_name,
-                        "lastName" => $last_name,
-                        "dateOfBirth" => $date_of_birth
-                    ],
-                    "serviceDates" => [
-                        "start" => "2021-11-15"
-                    ],
-                    "serviceTypeCodes" => [
-                        "serviceTypeCode" => ["30"]
-                    ],
-                    "payerIdentifier" => $payer_id
-                ]
+                "provider" => [
+                    "npi" => 1902846306,
+                    "lastName" => "ASAP Results, LLC"
+                ],
+                "subscriber" => [
+                    "memberIdentifier" => $insurance_id,
+                    "firstName" => $first_name,
+                    "lastName" => $last_name,
+                    "dateOfBirth" => $date_of_birth
+                ],
+                "serviceDates" => [
+                    "start" => "2021-11-15"
+                ],
+                "serviceTypeCodes" => [
+                    "serviceTypeCode" => ["30"]
+                ],
+                "payerIdentifier" => $payer_id
             ]
         ];
         $patientRecord = json_encode($post);
 
-        echo '<pre>'; echo $patientRecord; 
+        // echo '<pre>';
+        // echo $patientRecord;
         // die;
 
         $ch = curl_init($host);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', $authorization));
-        curl_setopt($ch, CURLOPT_HEADER, 1);
         curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $patientRecord);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         $return = curl_exec($ch);
+        $result = json_decode($return);
+        dd($result);
         curl_close($ch);
-
-        dd($return);
+        die;
     }
 
     public function create()

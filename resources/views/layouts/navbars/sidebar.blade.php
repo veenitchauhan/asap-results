@@ -50,9 +50,16 @@
           $activePage == 'test_type' ||
           $activePage == 'lab' ||
           $activePage == 'race' ||
-          $activePage == 'ethnicity' 
+          $activePage == 'ethnicity' ||
+          $activePage == 'eligibility_payer' 
           ? 'show' : '' }}" id="settings">
           <ul class="nav">
+            <li class="nav-item {{ $activePage == 'eligibility_payer' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('eligibility-payer.index') }}">
+                <i class="material-icons pt-1">edit_note</i>
+                <p class="font-weight-bold">{{ __('Eligibility Payers') }}</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ route('profile.edit') }}">
                 <i class="material-icons pt-1">edit_note</i>
