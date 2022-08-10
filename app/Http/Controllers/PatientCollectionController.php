@@ -27,7 +27,10 @@ class PatientCollectionController extends Controller
         // dd($request->all());
         switch ($request->action) {
             case 'eligibility':
-                $data = $this->searchEligibility($request);
+                $data['eligibility'] = $this->searchEligibility($request);
+                // dd($data['eligibility']);
+                // dd(isset($data['eligibility']->errors));
+                return view('patient_collection.search.eligibility')->with($data);
                 break;
 
             default:
@@ -35,7 +38,7 @@ class PatientCollectionController extends Controller
                 break;
         }
 
-        return view('patient_collection.index')->with($data);
+        // return view('patient_collection.index')->with($data);
     }
 
     private function searchPatient($request)
@@ -73,6 +76,7 @@ class PatientCollectionController extends Controller
 
     public function searchEligibility($request)
     {
+        // $this->getAccessTokenJWT();
         // dd($request->all());
         $token = $_ENV['BEARER_TOKEN'];
         $authorization = "Authorization: Bearer $token";
@@ -80,8 +84,6 @@ class PatientCollectionController extends Controller
         $host = 'https://api.abilitynetwork.com/v1/eligibilities';
         $username = 'joel@asap-results.com';
         $password = 'Asap@123*';
-        $client_id = 'asap-results';
-        $client_secret = 'm4deQGq54IwbuAXOFEbFdA==';
 
         // $first_name = "james";
         // $last_name = "treadwell";
@@ -131,9 +133,36 @@ class PatientCollectionController extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         $return = curl_exec($ch);
         $result = json_decode($return);
-        dd($result);
         curl_close($ch);
-        die;
+        return $result;
+    }
+
+    private function getAccessTokenJWT()
+    {
+        $host = "https://idp.myabilitynetwork.com/connect/token";
+        $client_id = 'asap-results';
+        $client_secret = 'm4deQGq54IwbuAXOFEbFdA==';
+
+        $data = [
+            'grant_type' => 'password',
+            'username' => 'joel@asap-results.com',
+            'password' => 'Asap@123*',
+            'scope' => 'openid+ability:accessapi'
+        ];
+        $post_data = json_encode($data);
+
+        $ch = curl_init($host);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_USERPWD, $client_id . ":" . $client_secret);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $return = curl_exec($ch);
+        curl_close($ch); 
+
+        dd($return);
     }
 
     public function create()

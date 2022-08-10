@@ -92,7 +92,7 @@
                 <img src="{{ url('/img/logo-green-100x74.png') }}" class="mx-auto">
             </div>
             <div class="modal-body pt-0">
-                <form id="searchPatientForm" action="{{ route('collection.search') }}" method="post" class="m-0">@csrf
+                <form id="searchPatientForm" action="{{ route('collection.search') }}" method="post" class="m-0" target="_blank">@csrf
                     <div class="form-group required row">
                         <span class="col-4">First Name:</span>
                         <div class="col-8">
