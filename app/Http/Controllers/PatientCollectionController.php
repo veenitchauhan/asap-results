@@ -171,6 +171,7 @@ class PatientCollectionController extends Controller
         $data['locations'] = Location::get();
         $data['races'] = Race::get();
         $data['ethnicities'] = Ethnicity::get();
+        $data['eligibility_payers'] = EligibilityPayer::orderBy('payer_name')->get();
         return view('patient_collection.create')->with($data);
     }
 

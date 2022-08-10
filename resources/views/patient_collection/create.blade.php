@@ -167,14 +167,23 @@
                                 <div class="label col-3 offset-1">State listed on selected ID: </div>
                                 <input type="text" name="state_code" class="form-control col-6 px-3" placeholder="State Code">
                             </div>
-                            <div class="form-group required row">
+                            {{-- <div class="form-group required row">
                                 <div class="label col-3 offset-1">Insurance Provider: </div>
                                 <input type="text" name="insurance_provider" class="form-control col-6 px-3" placeholder="Insurance Provider">
+                            </div> --}}
+                            <div class="form-group required row">
+                                <div class="label col-3 offset-1">Insurance Provider: </div>
+                                <select name="ethnicity" class="col-6 custom-select">
+                                    <option selected>--Select--</option>
+                                    @foreach($eligibility_payers as $payer)
+                                        <option value="{{ $payer->payer_id }}">{{ $payer->payer_name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Insurance Policy #: </div>
                                 <input type="text" name="insurance_policy_number" class="form-control col-5 px-3" placeholder="Insurance Policy #">
-                                <button type="button" class="btn btn-sm btn-warning">Verify</button>
+                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#searchPatientModal">Verify</button>
                             </div>
 
                             <!-- <div class="form-group required row">
@@ -302,6 +311,70 @@
                 <button type="button" class="btn btn-secondary" onclick="hideSignatureBox()">Close</button>
                 <button type="button" class="btn clear-button">Clear</button>
                 <button type="submit" form="signatureBoxForm" class="btn btn-warning">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="{{ url('/img/logo-green-100x74.png') }}" class="mx-auto">
+            </div>
+            <div class="modal-body pt-0">
+                <form id="searchPatientForm" action="{{ route('collection.search') }}" method="post" class="m-0" target="_blank">@csrf
+                    <div class="form-group required row">
+                        <span class="col-4">First Name:</span>
+                        <div class="col-8">
+                            <input type="text" name="first_name" class="form-control" placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="form-group required row">
+                        <span class="col-4">Last Name:</span>
+                        <div class="col-8">
+                            <input type="text" name="last_name" class="form-control" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="form-group required row">
+                        <span class="col-4">Date of Birth:</span>
+                        <div class="col-8">
+                            <input type="date" name="date_of_birth" class="form-control" placeholder="Date of Birth">
+                        </div>
+                    </div>
+                    <div class="form-group required row">
+                        <span class="col-4">Insurance ID:</span>
+                        <div class="col-8">
+                            <input type="text" name="insurance_id" class="form-control" placeholder="Insurance ID">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <span class="col-4">Eligibility Payers:</span>
+                        <div class="col-8">
+                            <select name="payer_id" class="custom-select">
+                                <option value="">-- Select Payer --</option>
+                                @foreach($eligibility_payers as $payer)
+                                <option value="{{ $payer->payer_id }}">{{ $payer->payer_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group row">
+                        <span class="col-4">Collection Site:</span>
+                        <div class="col-8">
+                            <select name="location_id" class="custom-select">
+                                <option value="">-- Select Collection Site --</option>
+                                @foreach($locations as $location)
+                                <option value="{{ $location->id }}">{{ $location->location_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div> -->
+                    <button type="submit" name="action" value="eligibility" class="btn btn-warning w-100">Search PATIENT ELIGIBILITY</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
