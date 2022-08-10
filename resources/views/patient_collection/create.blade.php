@@ -183,7 +183,7 @@
                             <div class="form-group required row">
                                 <div class="label col-3 offset-1">Insurance Policy #: </div>
                                 <input type="text" name="insurance_policy_number" class="form-control col-5 px-3" placeholder="Insurance Policy #">
-                                <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#searchPatientModal">Verify</button>
+                                <button type="button" class="btn btn-sm btn-warning" onclick="showSearchEligibility()">Verify</button>
                             </div>
 
                             <!-- <div class="form-group required row">
@@ -316,14 +316,14 @@
     </div>
 </div>
 
-<div class="modal fade" id="searchPatientModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="searchEligibilityModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <img src="{{ url('/img/logo-green-100x74.png') }}" class="mx-auto">
             </div>
             <div class="modal-body pt-0">
-                <form id="searchPatientForm" action="{{ route('collection.search') }}" method="post" class="m-0" target="_blank">@csrf
+                <form id="searchEligibilityForm" action="{{ route('collection.search') }}" method="post" class="m-0" target="_blank">@csrf
                     <div class="form-group required row">
                         <span class="col-4">First Name:</span>
                         <div class="col-8">
@@ -374,7 +374,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" onclick="hideSearchEligibility()">Close</button>
             </div>
         </div>
     </div>
@@ -384,6 +384,17 @@
 @section('script')
 <script src="{{ asset('js/signature.js')}}"></script>
 <script>
+    function showSearchEligibility() {
+        $('#searchEligibilityModal input[name=first_name]').val($('input[name=first_name]').val())
+        $('#searchEligibilityModal input[name=last_name]').val($('input[name=last_name]').val())
+        $('#searchEligibilityModal input[name=insurance_id]').val($('input[name=insurance_policy_number]').val())
+        
+        $('#searchEligibilityModal').modal('show')
+    }
+    function hideSearchEligibility() {
+        $('#searchEligibilityModal').modal('hide')
+    }
+
     function showSignatureBox(){
         $('#signatureBox').modal('show')
     }
