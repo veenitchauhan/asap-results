@@ -76,9 +76,9 @@ class PatientCollectionController extends Controller
 
     public function searchEligibility($request)
     {
-        // $this->getAccessTokenJWT();
-        // dd($request->all());
-        $token = $_ENV['BEARER_TOKEN'];
+        $jwt = $this->getAccessTokenJWT();
+        // $token = $_ENV['BEARER_TOKEN'];
+        $token = $jwt->access_token;
         $authorization = "Authorization: Bearer $token";
 
         $host = 'https://api.abilitynetwork.com/v1/eligibilities';
@@ -139,30 +139,25 @@ class PatientCollectionController extends Controller
 
     private function getAccessTokenJWT()
     {
-        $host = "https://idp.myabilitynetwork.com/connect/token";
-        $client_id = 'asap-results';
-        $client_secret = 'm4deQGq54IwbuAXOFEbFdA==';
+        $curl = curl_init();
 
-        $data = [
-            'grant_type' => 'password',
-            'username' => 'joel@asap-results.com',
-            'password' => 'Asap@123*',
-            'scope' => 'openid+ability:accessapi'
-        ];
-        $post_data = json_encode($data);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://idp.myabilitynetwork.com/connect/token',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => 'grant_type=password&username=joel%40asap-results.com&password=Asap%40123*&scope=openid%20ability%3Aaccessapi',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/x-www-form-urlencoded',
+                'Authorization: Basic YXNhcC1yZXN1bHRzOm00ZGVRR3E1NEl3YnVBWE9GRWJGZEE9PQ==',
+            ),
+        ));
 
-        $ch = curl_init($host);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/x-www-form-urlencoded'));
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_USERPWD, $client_id . ":" . $client_secret);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $return = curl_exec($ch);
-        curl_close($ch); 
-
-        dd($return);
+        return json_decode(curl_exec($curl));
     }
 
     public function create()

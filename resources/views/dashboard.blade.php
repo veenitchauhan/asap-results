@@ -15,7 +15,7 @@
         <!-- </a> -->
       </div>
 
-      <div class="card col-3" style="min-width: 20rem;">
+      {{-- <div class="card col-3" style="min-width: 20rem;">
         <a href="#">
           <div class="card-body text-center">
             <!-- <i class="material-icons text-warning">navigation</i> -->
@@ -33,7 +33,7 @@
             <p class="card-text text-dark"></p>
           </div>
         </a>
-      </div>
+      </div> --}}
 
       <div class="card col-3" style="min-width: 20rem;">
         <a href="#">
